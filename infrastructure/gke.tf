@@ -7,7 +7,7 @@ resource "google_pubsub_topic" "gke_upgrade_notifications" {
   name    = "${var.cluster_name}-notif"
 
   message_storage_policy {
-    allowed_persistence_regions = ["europe-west1", "europe-west2"]
+    allowed_persistence_regions = [var.default_region]
   }
 }
 
