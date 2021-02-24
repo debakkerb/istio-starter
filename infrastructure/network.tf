@@ -14,12 +14,12 @@ resource "google_compute_subnetwork" "service_mesh_subnet" {
 
   secondary_ip_range {
     range_name    = "pod-range"
-    ip_cidr_range = "10.1.0.0/24"
+    ip_cidr_range = "10.1.0.0/20"
   }
 
   secondary_ip_range {
     range_name    = "svc-range"
-    ip_cidr_range = "10.2.0.0/24"
+    ip_cidr_range = "10.2.0.0/20"
   }
 }
 

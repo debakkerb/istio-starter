@@ -7,7 +7,8 @@ resource "google_pubsub_topic" "gke_upgrade_notifications" {
   name    = "${var.cluster_name}-notif"
 
   message_storage_policy {
-    allowed_persistence_regions = [var.default_region]
+    allowed_persistence_regions = [
+    var.default_region]
   }
 }
 
@@ -27,6 +28,10 @@ resource "google_container_cluster" "gke_cluster" {
   monitoring_service       = "monitoring.googleapis.com/kubernetes"
   enable_shielded_nodes    = true
   enable_legacy_abac       = false
+
+  workload_identity_config {
+    identity_namespace = "${module.istio_starter_project.project_id}.svc.id.goog"
+  }
 
   master_auth {
     username = ""
@@ -118,7 +123,7 @@ resource "google_container_node_pool" "gke_node_pool" {
     ]
 
     workload_metadata_config {
-      node_metadata = "GKE_METADATA"
+      node_metadata = "GKE_METADATA_SERVER"
     }
 
     metadata = {
